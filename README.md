@@ -45,17 +45,17 @@ the respective builder classes through
 			.property(PropertyBuilder.use("name", "John Smith").build())
 			.build())
 		.linkSelf(
-				LinkBuilder.use("http://company.com/account/jsmith")
-				.profile("http://company.com/ns/account")
-				.build())
+			LinkBuilder.use("http://company.com/account/jsmith")
+			.profile("http://company.com/ns/account")
+			.build())
 		.curie(
-				LinkBuilder.use("http://company.com/ns/account/{rel}")
-				.templated(true)
-				.name("account")
-				.build())
+			LinkBuilder.use("http://company.com/ns/account/{rel}")
+			.templated(true)
+			.name("account")
+			.build())
 		.link("account:update",
-				LinkBuilder.use("http://company.com/account/jsmith/update")
-				.build())
+			LinkBuilder.use("http://company.com/account/jsmith/update")
+			.build())
 		.embedd("repositories",
 			ResourceBuilder.use(
 				RepresentationBuilder.use()
