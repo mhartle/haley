@@ -35,7 +35,7 @@ the respective builder classes through
 ```
 
 * Use the builders accordingly; eg. to create an fictious Account HAL
-  resource for a user Jack Smith who has two repositories, the following
+  resource for a user John Smith who has two repositories, the following
   code snippet
 
 ```
