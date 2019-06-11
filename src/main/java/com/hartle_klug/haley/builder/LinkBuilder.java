@@ -18,7 +18,7 @@ package com.hartle_klug.haley.builder;
  * limitations under the License.
  */
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.hartle_klug.haley.model.Link;
@@ -30,6 +30,7 @@ import com.hartle_klug.haley.model.Link;
  *
  */
 public class LinkBuilder {
+	private Map<String, Object> properties;
 	private String href;
 	private Boolean templated;
 	private String type;
@@ -45,6 +46,7 @@ public class LinkBuilder {
 	public static LinkBuilder use(String href) {
 		LinkBuilder linkBuilder = new LinkBuilder();
 		linkBuilder.href = href;
+		linkBuilder.properties = new LinkedHashMap<>();
 		return linkBuilder;
 	}
 	
@@ -83,8 +85,23 @@ public class LinkBuilder {
 		return this;
 	}
 	
+	public LinkBuilder properties(Map<String, Object> properties) {
+		if (properties != null) {
+			this.properties = properties;
+		} else {
+			this.properties = new LinkedHashMap<>();
+		}
+		
+		return this;
+	}
+	
+	public LinkBuilder property(String key, Object value) {
+		this.properties.put(key, value);
+		return this;
+	}
+	
 	public Link build() {
-		final Map<String, Object> properties = new HashMap<>();
+		final Map<String, Object> properties = new LinkedHashMap<>(this.properties);
 		
 		if (href != null) {
 			properties.put(Link.PROPERTY_HREF, href);

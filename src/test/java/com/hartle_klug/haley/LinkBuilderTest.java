@@ -20,6 +20,9 @@ package com.hartle_klug.haley;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 
 import com.hartle_klug.haley.builder.LinkBuilder;
@@ -33,6 +36,10 @@ public class LinkBuilderTest {
 	final static String LINK_PROFILE = "http://web.service/api/profile";
 	final static String LINK_TITLE = "Some API";
 	final static String LINK_TYPE = "application/hal+json";
+	final static String LINK_FIRST_PROPERTY_KEY = "first-link-property-key";
+	final static String LINK_FIRST_PROPERTY_VALUE = "first-link-property-value";
+	final static String LINK_LAST_PROPERTY_KEY = "last-link-property-key";
+	final static String LINK_LAST_PROPERTY_VALUE = "last-link-property-value";
 	
 	@Test
 	public void testLinkHref() {
@@ -80,5 +87,37 @@ public class LinkBuilderTest {
 	public void testLinkType() {
 		final Link link = LinkBuilder.use(LINK_HREF).type(LINK_TYPE).build();
 		assertEquals(LINK_TYPE, link.getProperties().get(Link.PROPERTY_TYPE));		
+	}
+	
+	@Test
+	public void testLinkProperty() {
+		final Link link = LinkBuilder.use(LINK_HREF).property(LINK_FIRST_PROPERTY_KEY, LINK_FIRST_PROPERTY_VALUE).build();
+		assertEquals(LINK_FIRST_PROPERTY_VALUE, link.getProperties().get(LINK_FIRST_PROPERTY_KEY));		
+	}
+	
+	@Test
+	public void testLinkProperties() {
+		Map<String, Object> properties = new HashMap<>();
+		properties.put(LINK_FIRST_PROPERTY_KEY, LINK_FIRST_PROPERTY_VALUE);
+		properties.put(LINK_LAST_PROPERTY_KEY, LINK_LAST_PROPERTY_VALUE);
+		final Link link = LinkBuilder.use(LINK_HREF).properties(properties).build();
+		assertEquals(LINK_FIRST_PROPERTY_VALUE, link.getProperties().get(LINK_FIRST_PROPERTY_KEY));
+		assertEquals(LINK_LAST_PROPERTY_VALUE, link.getProperties().get(LINK_LAST_PROPERTY_KEY));
+	}
+
+	@Test
+	public void testLinkPropertiesShadowing() {
+		Map<String, Object> properties = new HashMap<>();
+		properties.put(Link.PROPERTY_TITLE, LINK_TITLE);
+		final Link link = LinkBuilder.use(LINK_HREF).properties(properties).build();
+		assertEquals(LINK_TITLE, link.getProperties().get(Link.PROPERTY_TITLE));
+	}
+
+	@Test
+	public void testLinkPropertiesOverridden() {
+		Map<String, Object> properties = new HashMap<>();
+		properties.put(Link.PROPERTY_HREF, LINK_HREF + "2");
+		final Link link = LinkBuilder.use(LINK_HREF).properties(properties).build();
+		assertEquals(LINK_HREF, link.getProperties().get(Link.PROPERTY_HREF));
 	}
 }
