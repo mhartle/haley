@@ -104,20 +104,4 @@ public class LinkBuilderTest {
 		assertEquals(LINK_FIRST_PROPERTY_VALUE, link.getProperties().get(LINK_FIRST_PROPERTY_KEY));
 		assertEquals(LINK_LAST_PROPERTY_VALUE, link.getProperties().get(LINK_LAST_PROPERTY_KEY));
 	}
-
-	@Test
-	public void testLinkPropertiesShadowing() {
-		Map<String, Object> properties = new HashMap<>();
-		properties.put(Link.PROPERTY_TITLE, LINK_TITLE);
-		final Link link = LinkBuilder.use(LINK_HREF).properties(properties).build();
-		assertEquals(LINK_TITLE, link.getProperties().get(Link.PROPERTY_TITLE));
-	}
-
-	@Test
-	public void testLinkPropertiesOverridden() {
-		Map<String, Object> properties = new HashMap<>();
-		properties.put(Link.PROPERTY_HREF, LINK_HREF + "2");
-		final Link link = LinkBuilder.use(LINK_HREF).properties(properties).build();
-		assertEquals(LINK_HREF, link.getProperties().get(Link.PROPERTY_HREF));
-	}
 }

@@ -31,65 +31,55 @@ import com.hartle_klug.haley.model.Link;
  */
 public class LinkBuilder {
 	private Map<String, Object> properties;
-	private String href;
-	private Boolean templated;
-	private String type;
-	private String deprecation;
-	private String name;
-	private String profile;
-	private String title;
-	private String hreflang;
 	
 	private LinkBuilder() {
 	}
 	
 	public static LinkBuilder use(String href) {
 		LinkBuilder linkBuilder = new LinkBuilder();
-		linkBuilder.href = href;
 		linkBuilder.properties = new LinkedHashMap<>();
+		linkBuilder.properties.put(Link.PROPERTY_HREF, href);
 		return linkBuilder;
 	}
 	
 	public LinkBuilder templated(boolean templated) {
-		this.templated = templated;
+		this.properties.put(Link.PROPERTY_TEMPLATED, templated);
 		return this;
 	}
 	
 	public LinkBuilder type(String type) {
-		this.type = type;
+		this.properties.put(Link.PROPERTY_TYPE, type);
 		return this;
 	}
 	
 	public LinkBuilder deprecation(String deprecation) {
-		this.deprecation = deprecation;
+		this.properties.put(Link.PROPERTY_DEPRECATION, deprecation);
 		return this;
 	}
 	
 	public LinkBuilder name(String name) {
-		this.name = name;
+		this.properties.put(Link.PROPERTY_NAME, name);
 		return this;
 	}
 	
 	public LinkBuilder profile(String profile) {
-		this.profile = profile;
+		this.properties.put(Link.PROPERTY_PROFILE, profile);
 		return this;
 	}
 	
 	public LinkBuilder title(String title) {
-		this.title = title;
+		this.properties.put(Link.PROPERTY_TITLE, title);
 		return this;
 	}
 	
 	public LinkBuilder hreflang(String hreflang) {
-		this.hreflang = hreflang;
+		this.properties.put(Link.PROPERTY_HREFLANG, hreflang);
 		return this;
 	}
 	
 	public LinkBuilder properties(Map<String, Object> properties) {
 		if (properties != null) {
-			this.properties = properties;
-		} else {
-			this.properties = new LinkedHashMap<>();
+			this.properties.putAll(properties);
 		}
 		
 		return this;
@@ -101,40 +91,6 @@ public class LinkBuilder {
 	}
 	
 	public Link build() {
-		final Map<String, Object> properties = new LinkedHashMap<>(this.properties);
-		
-		if (href != null) {
-			properties.put(Link.PROPERTY_HREF, href);
-		}
-		
-		if (templated != null) {
-			properties.put(Link.PROPERTY_TEMPLATED, templated);
-		}
-		
-		if (type != null) {
-			properties.put(Link.PROPERTY_TYPE, type);
-		}
-		
-		if (deprecation != null) {
-			properties.put(Link.PROPERTY_DEPRECATION, deprecation);
-		}
-		
-		if (name != null) {
-			properties.put(Link.PROPERTY_NAME, name);
-		}
-		
-		if (profile != null) {
-			properties.put(Link.PROPERTY_PROFILE, profile);
-		}
-		
-		if (title != null) {
-			properties.put(Link.PROPERTY_TITLE, title);
-		}
-		
-		if (hreflang != null) {
-			properties.put(Link.PROPERTY_HREFLANG, hreflang);
-		}
-		
 		final Link result = new Link(properties);
 		return result;
 	}
