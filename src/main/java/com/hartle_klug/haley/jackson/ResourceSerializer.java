@@ -35,33 +35,29 @@ public class ResourceSerializer extends StdSerializer<Resource> {
 	private static final long serialVersionUID = 1L;
 
 	public ResourceSerializer() {
-		this(null);
-	}
-	
-	public ResourceSerializer(Class<Resource> t) {
-		super(t);
+		super(Resource.class);
 	}
 
 	@Override
 	public void serialize(Resource resource, JsonGenerator generator, SerializerProvider provider) throws IOException {
-        generator.writeStartObject();
-        
-        if (resource.getRepresentation() != null) {
-        	for(String name : resource.getRepresentation().keySet()) {
-        		generator.writeObjectField(name, resource.getRepresentation().get(name));
-        	}
-        }
-        
-        if (resource.getLinks() != null && !resource.getLinks().isEmpty()) {
-	        generator.writeFieldName("_links");
-	        provider.defaultSerializeValue(resource.getLinks(), generator);
-        }
+		generator.writeStartObject();
 
-        if (resource.getEmbeddeds() != null && !resource.getEmbeddeds().isEmpty()) {
-	        generator.writeFieldName("_embedded");
-	        provider.defaultSerializeValue(resource.getEmbeddeds(), generator);
-        }
-        
-        generator.writeEndObject();
+		if (resource.getRepresentation() != null) {
+			for (String name : resource.getRepresentation().keySet()) {
+				generator.writeObjectField(name, resource.getRepresentation().get(name));
+			}
+		}
+
+		if (resource.getLinks() != null && !resource.getLinks().isEmpty()) {
+			generator.writeFieldName("_links");
+			provider.defaultSerializeValue(resource.getLinks(), generator);
+		}
+
+		if (resource.getEmbeddeds() != null && !resource.getEmbeddeds().isEmpty()) {
+			generator.writeFieldName("_embedded");
+			provider.defaultSerializeValue(resource.getEmbeddeds(), generator);
+		}
+
+		generator.writeEndObject();
 	}
 }

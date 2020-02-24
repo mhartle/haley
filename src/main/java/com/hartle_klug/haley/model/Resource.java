@@ -20,7 +20,9 @@ package com.hartle_klug.haley.model;
 
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hartle_klug.haley.jackson.ResourceDeserializer;
 import com.hartle_klug.haley.jackson.ResourceSerializer;
 
 /**
@@ -30,6 +32,7 @@ import com.hartle_klug.haley.jackson.ResourceSerializer;
  *
  */
 @JsonSerialize(using = ResourceSerializer.class)
+@JsonDeserialize(using = ResourceDeserializer.class)
 public class Resource {
 	protected final Map<String, Object> representation;
 	protected final Map<String, Object> links;
@@ -51,5 +54,42 @@ public class Resource {
 	
 	public Map<String, Object> getEmbeddeds() {
 		return embeddeds;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((embeddeds == null) ? 0 : embeddeds.hashCode());
+		result = prime * result + ((links == null) ? 0 : links.hashCode());
+		result = prime * result + ((representation == null) ? 0 : representation.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Resource other = (Resource) obj;
+		if (embeddeds == null) {
+			if (other.embeddeds != null)
+				return false;
+		} else if (!embeddeds.equals(other.embeddeds))
+			return false;
+		if (links == null) {
+			if (other.links != null)
+				return false;
+		} else if (!links.equals(other.links))
+			return false;
+		if (representation == null) {
+			if (other.representation != null)
+				return false;
+		} else if (!representation.equals(other.representation))
+			return false;
+		return true;
 	}
 }
