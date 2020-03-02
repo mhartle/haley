@@ -28,7 +28,7 @@
 
 	<name>Haley HAL Resource Builder</name>
 	<description>Builder for HAL resources</description>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<inceptionYear>2018</inceptionYear>
 	<url>https://github.com/mhartle/haley</url>
 

@@ -113,7 +113,7 @@ public class ResourceBuilder {
 			previousList.add((Link)previous);
 			previousList.addAll(links);
 			this.links.put(reference, previousList);
-		} else if (links != null) {
+		} else if (links != null && !links.isEmpty()) {
 			this.links.put(reference, links);
 		}
 
@@ -159,7 +159,7 @@ public class ResourceBuilder {
 			previousList.add((Resource)previous);
 			previousList.addAll(embedded);
 			this.embedded.put(reference, previousList);
-		} else if (embedded != null) {
+		} else if (embedded != null && !embedded.isEmpty()) {
 			this.embedded.put(reference, embedded);
 		}
 
