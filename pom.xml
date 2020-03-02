@@ -22,13 +22,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.hartle-klug.haley</groupId>
+	<groupId>com.hartle-klug</groupId>
 	<artifactId>haley</artifactId>
 	<packaging>jar</packaging>
 
 	<name>Haley HAL Resource Builder</name>
 	<description>Builder for HAL resources</description>
-	<version>0.13.0</version>
+	<version>1.0.0</version>
 	<inceptionYear>2018</inceptionYear>
 	<url>https://github.com/mhartle/haley</url>
 
@@ -105,9 +105,27 @@
 		</dependency>
 	</dependencies>
 
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/mhartle/haley/issues</url>
+	</issueManagement>
+
+	<scm>
+		<url>https://github.com/mhartle/haley</url>
+		<connection>scm:git:https://github.com/mhartle/haley.git</connection>
+		<developerConnection>scm:git:https://github.com/mhartle/haley.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<id>mhartle</id>
+			<name>Michael Hartle</name>
+			<email>mhartle@hartle-klug.com</email>
+		</developer>
+	</developers>
+
 	<build>
 		<plugins>
-			<!-- Eclipse plugin configuration -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
@@ -119,7 +137,6 @@
 				</configuration>
 			</plugin>
 
-			<!-- Compiler plugin configuration -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -127,6 +144,61 @@
 				<configuration>
 					<source>${jdk.version}</source>
 					<target>${jdk.version}</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.0.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
 		</plugins>

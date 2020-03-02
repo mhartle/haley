@@ -100,7 +100,24 @@ public class ResourceBuilder {
 	}
 	
 	public ResourceBuilder link(String reference, List<Link> links) {
-		return link(reference, links.toArray(new Link[0]));
+		// Ensure prefix is registered, if any
+		ensureCuriePrefixRegistration(reference);
+
+		Object previous = this.links.get(reference);
+		if (previous instanceof List<?>) {
+			@SuppressWarnings("unchecked")
+			List<Link> previousList = (List<Link>) previous;
+			previousList.addAll(links);
+		} else if (previous != null) {
+			List<Link> previousList = new LinkedList<>();
+			previousList.add((Link)previous);
+			previousList.addAll(links);
+			this.links.put(reference, previousList);
+		} else if (links != null) {
+			this.links.put(reference, links);
+		}
+
+		return this;
 	}	
 	
 	@SuppressWarnings("unchecked")
@@ -129,7 +146,24 @@ public class ResourceBuilder {
 	}
 	
 	public ResourceBuilder embedd(String reference, List<Resource> embedded) {
-		return embedd(reference, embedded.toArray(new Resource[0]));
+		// Ensure prefix is registered, if any
+		ensureCuriePrefixRegistration(reference);
+
+		Object previous = this.embedded.get(reference);
+		if (previous instanceof List<?>) {
+			@SuppressWarnings("unchecked")
+			List<Resource> previousList = (List<Resource>) previous;
+			previousList.addAll(embedded);
+		} else if (previous != null) {
+			List<Resource> previousList = new LinkedList<>();
+			previousList.add((Resource)previous);
+			previousList.addAll(embedded);
+			this.embedded.put(reference, previousList);
+		} else if (embedded != null) {
+			this.embedded.put(reference, embedded);
+		}
+
+		return this;
 	}	
 	
 	public Resource build() {
