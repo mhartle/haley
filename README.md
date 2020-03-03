@@ -28,7 +28,7 @@
 
 ```
 	compile group: 'com.hartle-klug', name: 'haley', version: '1.0.1'
-``
+```
 
 ## Usage
 
