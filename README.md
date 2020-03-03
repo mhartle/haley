@@ -4,28 +4,35 @@
 
 * Haley is a builder for Hypertext Application Language (HAL) resources as
   per [draft-kelly-json-hal-08](https://www.ietf.org/archive/id/draft-kelly-json-hal-08.txt)
-  for web service controllers written in Java, just using Jackson for JSON
-  serialization.
+  for web service controllers written in Java. It uses Jackson for the
+  serialization and deserialization of HAL JSON resources.
 
 * The library is useful for Hypertext As The Engine Of Application State
-  (HATEOAS)-based applications, as it allows you to build HAL resources
-  through a fluent builder API, including support for links, embedded
+  (HATEOAS)-based applications. It allows you to build HAL resources
+  through a fluent builder API including support for links, embedded
   resources and CURIEs.
+
+## Dependency
+
+### Maven
+
+```
+	<dependency>
+		<groupId>com.hartle-klug</groupId>
+		<artifactId>haley</artifactId>
+		<version>1.0.1</version>
+	</dependency>
+```
+
+### Gradle
+
+```
+	compile group: 'com.hartle-klug', name: 'haley', version: '1.0.1'
+``
 
 ## Usage
 
-* Download the source code
-
-* Build the library using Maven 3
-
-```
-	mvn clean package
-```
-
-* Find the resulting haley-*.jar in the generated target/ subdirectory.
-
-* Import the library into your own project. In your source code, import
-the respective builder classes through
+* Import the respective builder classes to your Java class
 
 ```
 	import com.hartle_klug.haley.builder.ResourceBuilder;
